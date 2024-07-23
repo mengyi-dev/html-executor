@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Preview</title>
+</head>
+<body>
+    <div id="previewContainer"></div>
+    <script>
+        function getParameterByName(name) {
+            const url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+            const results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        const htmlCode = getParameterByName('html');
+        const cssCode = `<style>${getParameterByName('css')}</style>`;
+        const jsCode = `<script>${getParameterByName('js')}<\/script>`;
+
+        const previewContainer = document.getElementById("previewContainer");
+        previewContainer.innerHTML = htmlCode + cssCode + jsCode;
+    </script>
+</body>
+</html>
