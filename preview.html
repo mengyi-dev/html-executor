@@ -18,9 +18,13 @@
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
 
-        const htmlCode = getParameterByName('html');
-        const cssCode = `<style>${getParameterByName('css')}</style>`;
-        const jsCode = `<script>${getParameterByName('js')}<\/script>`;
+        function base64Decode(str) {
+            return decodeURIComponent(escape(atob(str)));
+        }
+
+        const htmlCode = base64Decode(getParameterByName('html'));
+        const cssCode = `<style>${base64Decode(getParameterByName('css'))}</style>`;
+        const jsCode = `<script>${base64Decode(getParameterByName('js'))}<\/script>`;
 
         const previewContainer = document.getElementById("previewContainer");
         previewContainer.innerHTML = htmlCode + cssCode + jsCode;
